@@ -8,12 +8,26 @@
         <title>NASA</title>
     </head>
     <body onload="myFun()">
-        <header>This is NASA's astronomy picture</header>
-        <input type="date" onchange="setDate(this.value)"/>
+    <!-- <body > -->
+        <header>
+            <h1>This is NASA's astronomy picture</h1>
+        </header>
+        <div >
+            <input type="date" onchange="setDate(this.value)" id="dataPicker"/>
+        </div>
 
         <br />
         
-        <img src="#" alt="NASA's" id="image"/>
+        <div id="container">
+            <img src="#" alt="NASA's" id="image"/>
+            <h3 id="title"></h3>
+            <p id="explanation"></p>
+            <i id="copyright"></i>
+            <div>
+                <a href="#" id="url" target="_blank">Midium size</a>
+                <a href="#" id="hdurl" target="_blank">HD size</a>
+            </div>
+        </div>
 
         <script>
             function setDate(e){
@@ -23,13 +37,22 @@
             async function getImage(date){
                 await fetch(`https://api.nasa.gov/planetary/apod/?date=${date}&api_key=7ykIE0ZCRYZDIkmhcCY9t2lfxEcXDKlwGupfgUTb`).then(e => e.json()).then(data => {
                     document.getElementById('image').setAttribute('src', data.url)
+                    document.getElementById('explanation').innerHTML = data.explanation
+                    document.getElementById('copyright').innerHTML = data.copyright
+                    document.getElementById('title').innerHTML = data.title
+                    document.getElementById('hdurl').setAttribute('href', data.hdurl)
+                    document.getElementById('url').setAttribute('href', data.url)
+                    console.log(data)
                 }).catch(error => {
                     console.log(error)
                 })
             }
 
             function myFun(){                
-                getImage(new Date().toISOString().slice(0, 10))
+                const Today = new Date().toISOString().slice(0, 10)
+                getImage(Today)
+                document.getElementById('dataPicker').setAttribute('max', Today)
+                document.getElementById('dataPicker').setAttribute('value', Today)
             }
         </script>
     </body>

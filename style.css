@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    width: 100vw;
+    text-align: center;
+}
+
+#container{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#container img{
+    width: 100%;
+    max-width: 90vw;
+    height: auto;
+}
+
+input[type="date"]{
+    background-color: #0080ff;
+    padding: 15px;
+    font-family: "Roboto Mono",monospace;
+    color: #ffffff;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
