@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./style.css">
+        <title>NASA</title>
+    </head>
+    <body onload="myFun()">
+        <header>This is NASA's astronomy picture</header>
+        <input type="date" onchange="setDate(this.value)"/>
+
+        <br />
+        
+        <img src="#" alt="NASA's" id="image"/>
+
+        <script>
+            function setDate(e){
+                getImage(e)
+            }
+
+            async function getImage(date){
+                await fetch(`https://api.nasa.gov/planetary/apod/?date=${date}&api_key=7ykIE0ZCRYZDIkmhcCY9t2lfxEcXDKlwGupfgUTb`).then(e => e.json()).then(data => {
+                    document.getElementById('image').setAttribute('src', data.url)
+                }).catch(error => {
+                    console.log(error)
+                })
+            }
+
+            function myFun(){                
+                getImage(new Date().toISOString().slice(0, 10))
+            }
+        </script>
+    </body>
+</html>
